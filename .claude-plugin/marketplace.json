@@ -7,15 +7,12 @@
   "plugins": [
     {
       "name": "demo-video",
-      "source": "./",
+      "source": "./plugins/demo-video",
       "description": "Record a narrated, captioned demo video of a pull request actually working, then attach it to the PR with gh."
     },
     {
       "name": "session-rescue",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/shiruten/session-rescue.git"
-      },
+      "source": "./plugins/session-rescue",
       "description": "Bring back a Claude Code desktop session that disappeared from the Code tab: unarchive it, or rebuild its sidebar card from the transcript still on disk."
     }
   ]

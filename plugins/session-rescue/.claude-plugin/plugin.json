@@ -1,0 +1,20 @@
+{
+  "name": "session-rescue",
+  "description": "Bring back a Claude Code desktop session that disappeared from the Code tab: unarchive a session that was archived, or rebuild the sidebar entry for one that was deleted while its transcript is still on disk.",
+  "version": "0.1.0",
+  "author": {
+    "name": "shiruten"
+  },
+  "homepage": "https://github.com/shiruten/claude-plugins",
+  "repository": "https://github.com/shiruten/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "desktop",
+    "session",
+    "transcript",
+    "recovery",
+    "undelete",
+    "unarchive"
+  ]
+}

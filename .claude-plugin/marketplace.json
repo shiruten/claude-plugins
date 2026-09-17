@@ -13,8 +13,8 @@
     {
       "name": "session-rescue",
       "source": {
-        "source": "github",
-        "repo": "shiruten/session-rescue"
+        "source": "url",
+        "url": "https://github.com/shiruten/session-rescue.git"
       },
       "description": "Bring back a Claude Code desktop session that disappeared from the Code tab: unarchive it, or rebuild its sidebar card from the transcript still on disk."
     }

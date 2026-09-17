@@ -3,12 +3,20 @@
   "owner": {
     "name": "shiruten"
   },
+  "description": "Plugins by shiruten: demo-video records narrated demo videos of pull requests; session-rescue brings back desktop sessions that vanished from the Code tab.",
   "plugins": [
     {
       "name": "demo-video",
       "source": "./",
       "description": "Record a narrated, captioned demo video of a pull request actually working, then attach it to the PR with gh."
+    },
+    {
+      "name": "session-rescue",
+      "source": {
+        "source": "github",
+        "repo": "shiruten/session-rescue"
+      },
+      "description": "Bring back a Claude Code desktop session that disappeared from the Code tab: unarchive it, or rebuild its sidebar card from the transcript still on disk."
     }
-  ],
-  "description": "Plugins by shiruten: demo-video records narrated, captioned demo videos of pull requests."
+  ]
 }

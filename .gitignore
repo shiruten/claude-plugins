@@ -1,2 +1,3 @@
-skills/record/scripts/.bin/
+.bin/
+__pycache__/
 .DS_Store

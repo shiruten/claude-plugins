@@ -27,6 +27,10 @@ $REC start ~/Movies/pr-demo/<name>/scene1.mp4
 $REC stop  ~/Movies/pr-demo/<name>/scene1.mp4     # waits for the moov atom
 ```
 
+**Why `stop` touches the status bar.** `recordVideo` writes a frame only when the screen changes, and the file ends at the last frame it wrote. A scene that ends on a static screen (tap a button → a label changes → wait → stop) therefore comes out cut at that change, shorter than it was recorded, and can freeze on the state *before* the change. So `rec.sh stop` changes the battery level to 99 and back to 100 (about 1.4 s) before sending SIGINT, which pushes the final state into the file. `rec.sh start` applies the same override before recording, so the battery icon has the same (green, override) look in every scene. Clear it when you are done: `xcrun simctl status_bar booted clear`.
+
+**Checking the last frame.** Decode every frame and keep the last one: `ffmpeg -i scene1.mp4 -update 1 -frames:v 9999 last.png`. Do not use `-sseof -0.3`: frames are sparse, so it returns an older frame, or none at all when the last 0.3 s holds no frame.
+
 To change page, run `agent-device open com.apple.mobilesafari <url> --platform ios --session ios` again. To switch roles, log out and log in as the other account.
 
 ## Input recipe (iOS Safari specifics)

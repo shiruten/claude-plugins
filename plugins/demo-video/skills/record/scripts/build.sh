@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Assemble one narrated, captioned mp4 from scenes.tsv + <scene_id>.mp4|webm|mov in <workdir>, then verify it.
+# Assemble one narrated (optionally captioned) mp4 from scenes.tsv + <scene_id>.mp4|webm|mov in <workdir>, then verify it.
 # usage: build.sh <workdir> [--captions] [--voice NAME] [--rate WPM] [--height 1280] [--crf 23] [--font NAME] [--font-size N] [--title-color 0x222222] [--title-sec 1.2] [--no-title-cards]
 set -euo pipefail
 
@@ -146,7 +146,8 @@ ffmpeg -nostdin -y -v error -i "$NAME.mp4" -vf "fps=9/${TOTAL},scale=300:-2,tile
 
 # summary.md: paste-ready PR comment body (the video itself is attached with gh pr comment --attach).
 {
-  printf '## Demo video\n\n%s scenes, %.0fs, %s MB. Narration is also burned in as captions.\n\n' "$N" "$TOTAL" "$MB"
+  printf '## Demo video\n\n%s scenes, %.0fs, %s MB.%s\n\n' "$N" "$TOTAL" "$MB" \
+    "$([ "$CAPTIONS" = 1 ] && echo ' Narration is also burned in as captions.')"
   printf '| # | Scene | Narration |\n| --- | --- | --- |\n'
   cat summary_rows.md
 } > summary.md

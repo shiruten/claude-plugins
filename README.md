@@ -8,7 +8,7 @@ A Claude Code plugin marketplace.
 
 | Plugin | What it does |
 | --- | --- |
-| [demo-video](plugins/demo-video) | Records a narrated, captioned demo video of a pull request actually working, then attaches it to the PR with `gh`. |
+| [demo-video](plugins/demo-video) | Records a narrated demo video (captions optional) of a pull request actually working, then attaches it to the PR with `gh`. |
 | [session-rescue](plugins/session-rescue) | Brings back a desktop session that disappeared from the Code tab — unarchives it, or rebuilds its sidebar card from the transcript still on disk. |
 
 Install one:

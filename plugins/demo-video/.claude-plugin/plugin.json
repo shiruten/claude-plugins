@@ -1,7 +1,7 @@
 {
   "name": "demo-video",
   "description": "Record a narrated demo video (captions optional) of a pull request actually working (Chromium or iOS Simulator Safari), then attach it to the PR with gh.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": {
     "name": "shiruten"
   },

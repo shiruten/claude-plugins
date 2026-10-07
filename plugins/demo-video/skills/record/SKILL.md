@@ -3,7 +3,7 @@ name: record
 description: Record a narrated demo video that shows a pull request's feature actually working. Real screen recording of Chromium (default) or iOS Simulator Safari, one narration sentence per scene via macOS `say`, optional burned-in captions, verified with contact sheets, and optionally attached to the PR with `gh pr comment --attach`. Use whenever the user asks for a demo video, a walkthrough video, or wants reviewers to see a change working.
 argument-hint: "[-w|-i] [-t \"name\"] [-pr #123|url] [-c] [-sr \"scene requests\"]"
 disable-model-invocation: true
-allowed-tools: Bash(${CLAUDE_SKILL_DIR}/scripts/*) Bash(agent-device *) Bash(agent-browser *) Bash(ffprobe *) Bash(gh pr view *) Bash(gh repo view *)
+allowed-tools: Bash(${CLAUDE_SKILL_DIR}/scripts/*) Bash(agent-device *) Bash(agent-browser *) Bash(ffprobe *) Bash(gh pr view *) Bash(gh repo view *) Bash(xcrun simctl shutdown *) Bash(killall Simulator)
 ---
 
 Turn "this PR works" into a 30–90 second video a reviewer can just play. Each scene is a real recording of the feature being used, with one narration sentence spoken by `say` and, only when `-c` is given, burned in as a caption. The pipeline is local: nothing leaves the machine except the final upload you approve.
@@ -134,10 +134,13 @@ Leave nothing behind but the PR comment (or the video folder, if it was not post
 1. Close sessions: `agent-device close --session ios` / `agent-browser close`
 2. Stray recorders: `pgrep -fl recordVideo` → `kill -INT <pid>`
 3. Status bar (`-i`; `rec.sh` overrides the battery level): `xcrun simctl status_bar booted clear`
-4. Undo fixtures and state you changed in the app (see project notes)
-5. `git checkout "$ORIG"` if you switched branches
-6. Remove temp files your helpers created (cookie jars etc.)
-7. If the attachment is confirmed on the PR, delete the folder; every recording and intermediate is regenerable and the PR is the source of truth. Keep the folder if nothing was posted.
+4. Quit what you recorded with, after the recorders have stopped:
+   - `target=web`: `agent-browser close --all` (also ends sessions left over from earlier scenes or roles)
+   - `target=ios`: `xcrun simctl shutdown booted`, then `killall Simulator` to quit the Simulator app
+5. Undo fixtures and state you changed in the app (see project notes)
+6. `git checkout "$ORIG"` if you switched branches
+7. Remove temp files your helpers created (cookie jars etc.)
+8. If the attachment is confirmed on the PR, delete the folder; every recording and intermediate is regenerable and the PR is the source of truth. Keep the folder if nothing was posted.
 
 ```bash
 gh pr view <pr> --repo "$REPO" --json comments -q '[.comments[] | select(.body|test("user-attachments"))] | length'   # ≥1 means attached
